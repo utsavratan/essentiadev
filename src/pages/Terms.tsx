@@ -65,7 +65,7 @@ content: (
               <h1 className="text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-slate-600 to-blue-600 bg-clip-text text-transparent">
                 Terms of Service
               </h1>
-              <p className="text-lg text-gray-600 mb-4">Last updated: June 2, 2025</p>
+              <p className="text-lg text-gray-600 mb-4">Last updated: July 11, 2025</p>
             </div>
           </AnimatedElement>
           

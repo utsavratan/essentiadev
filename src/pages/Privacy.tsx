@@ -130,7 +130,7 @@ const Privacy = () => {
               <h1 className="text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
                 Privacy Policy
               </h1>
-              <p className="text-lg text-gray-600 mb-4">Last updated: June 30, 2025</p>
+              <p className="text-lg text-gray-600 mb-4">Last updated: July 11, 2025</p>
               <AnimatedElement animation="slide-up" delay={0.05} children={''}></AnimatedElement>
                 <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg hover:shadow-xl p-8 mb-8 transition-all duration-300 hover:scale-[1.02] max-w-4xl mx-auto">
                   <p className="text-xl text-gray-600 leading-relaxed">
@@ -138,7 +138,7 @@ const Privacy = () => {
                     <a href="https://essentia.dev" className="text-emerald-600 hover:underline font-medium" target="_blank" rel="noopener noreferrer">
                       https://essentia.dev
                     </a>
-                    . We are committed to ensuring that your privacy is protected. Should we ask you to provide certain information by which you can be identified when using this website, you can be assured that it will only be used in accordance with this privacy statement.
+                    We are committed to ensuring that your privacy is protected. Should we ask you to provide certain information by which you can be identified when using this website, you can be assured that it will only be used in accordance with this privacy statement.
                   </p>
                 </div>
                 </div>
