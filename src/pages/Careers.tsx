@@ -70,7 +70,10 @@ const Careers = () => {
                   href="mailto:hr@essentia.dev" 
                   className="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-white px-8 py-4 rounded-full font-medium text-lg shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105"
                 >
-                  <Briefcase className="w-5 h-5" />
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                    <rect width="20" height="16" x="2" y="4" rx="2" />
+                    <path d="m22 6-9.6 7.2a2 2 0 0 1-2.4 0L2 6" />
+                  </svg>
                   hr@essentia.dev
                 </a>
               </div>
