@@ -66,12 +66,9 @@ const FreeWebsite = () => {
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {[
-                "Complete website development",
-                "Responsive design for all devices",
-                "Basic SEO optimization",
-                "Content management system",
-                "Domain setup assistance",
-                "Initial hosting on our servers"
+                "Development effort required to deliver your first wordpress website for free.",
+                "Consultation and brainstorming with you to determine what needs to be built.",
+                "One week of support post delivery."
               ].map((item, index) => (
                 <AnimatedElement key={index} animation="scale-in" delay={index * 0.1}>
                   <div className="flex items-start gap-3 p-4 rounded-xl bg-green-50 hover:bg-green-100 transition-colors">
@@ -95,12 +92,10 @@ const FreeWebsite = () => {
             </div>
             <div className="grid md:grid-cols-2 gap-8">
               {[
-                "Custom advanced features beyond basic functionality",
-                "Premium third-party integrations",
-                "Advanced e-commerce capabilities",
-                "Custom design modifications after delivery",
-                "Premium hosting and performance optimization",
-                "Ongoing maintenance and updates (optional)"
+                "Domain registration (annual rental for the domain name you choose)",
+                "Hosting (the server where the website will be hosted)",
+                "Template / Theme (if a paid one is chosen)",
+                "Pictures, (if paid ones are chosen)"
               ].map((item, index) => (
                 <AnimatedElement key={index} animation="slide-right" delay={index * 0.1}>
                   <div className="flex items-start gap-3 p-4 rounded-xl bg-orange-50 hover:bg-orange-100 transition-colors">
@@ -124,12 +119,10 @@ const FreeWebsite = () => {
             </div>
             <div className="max-w-4xl mx-auto space-y-6">
               {[
-                "We deliver fully functional, professional websites that meet industry standards",
-                "No hidden costs or surprise charges - what's free stays free",
-                "Complete ownership of your website and all its components",
-                "Professional support during the development process",
-                "Transparent communication throughout the project timeline",
-                "Quality assurance and testing before delivery"
+                "No lock-in ever",
+                "we will turn over all credentials(passwords), code and artifacts pertaining to your website.",
+                "Documentation regarding how things are configured.",
+                "A walk through about how you can make minor modifications to your website without contacting us."
               ].map((promise, index) => (
                 <AnimatedElement key={index} animation="slide-left" delay={index * 0.1}>
                   <div className="flex items-start gap-4 p-6 rounded-xl bg-blue-50 hover:bg-blue-100 transition-colors">
@@ -158,19 +151,11 @@ const FreeWebsite = () => {
                 {[
                   {
                     title: "Building Relationships",
-                    description: "We believe in fostering long-term partnerships. Today's startup could be tomorrow's enterprise client."
-                  },
-                  {
-                    title: "Community Impact",
-                    description: "Supporting emerging businesses and entrepreneurs helps build a stronger tech ecosystem."
+                    description: "To earn some goodwill, establish a relationship."
                   },
                   {
                     title: "Showcase Our Expertise",
-                    description: "Free projects allow us to demonstrate our capabilities and attract potential clients."
-                  },
-                  {
-                    title: "Giving Back",
-                    description: "We understand the challenges of starting a business and want to remove barriers to digital presence."
+                    description: "A little bit of space on the footer of your website."
                   }
                 ].map((reason, index) => (
                   <AnimatedElement key={index} animation="scale-in" delay={index * 0.2}>

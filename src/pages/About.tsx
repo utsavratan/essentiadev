@@ -33,7 +33,7 @@ const About = () => {
               About Us
             </h1>
             <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-              We are a team of passionate developers, designers, and strategists dedicated to creating exceptional digital experiences that transform businesses.
+              Welcome to Essentia.dev, a software services firm that is committed to helping businesses and organizations achieve their goals through innovative and cutting-edge software solutions. Our company culture is centered around nurturing creativity and encouraging our team members to think outside the box to deliver exceptional results.
             </p>
           </div>
         </AnimatedElement>
