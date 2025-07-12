@@ -5,7 +5,7 @@ import AnimatedElement from '../components/AnimatedElement';
 import { BookOpen, Clock, User, Calendar } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
-import ContentPreview from '@/components/ContentPreview';
+import ContentPreview from '../components/ContentPreview';
 import { Badge } from '@/components/ui/badge';
 
 interface BlogPost {
