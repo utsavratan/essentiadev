@@ -5,6 +5,8 @@ import AnimatedElement from '../components/AnimatedElement';
 import { BookOpen, Clock, User, Calendar } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
+import ContentPreview from '@/components/ContentPreview';
+import { Badge } from '@/components/ui/badge';
 
 interface BlogPost {
   id: string;
@@ -15,6 +17,8 @@ interface BlogPost {
   cover_image: string | null;
   author_name: string;
   author_image?: string | null;
+  author_designation?: string | null;
+  tags?: string[] | null;
   published: boolean;
   created_at: string;
   updated_at: string;
@@ -139,9 +143,23 @@ const Blog = () => {
                       </h2>
 
                       {/* Excerpt */}
-                      <p className="text-muted-foreground mb-4 line-clamp-3 flex-1">
-                        {post.excerpt || post.content.substring(0, 150) + '...'}
-                      </p>
+                      <div className="mb-4 flex-1">
+                        <ContentPreview content={post.excerpt || post.content} className="line-clamp-3" />
+                      </div>
+
+                      {/* Tags */}
+                      {post.tags && post.tags.length > 0 && (
+                        <div className="flex flex-wrap gap-2 mb-4">
+                          {post.tags.slice(0, 3).map((tag, index) => (
+                            <Badge key={index} variant="secondary" className="text-xs">
+                              {tag}
+                            </Badge>
+                          ))}
+                          {post.tags.length > 3 && (
+                            <Badge variant="secondary" className="text-xs">+{post.tags.length - 3}</Badge>
+                          )}
+                        </div>
+                      )}
 
                       {/* Author */}
                       <div className="flex items-center justify-between mt-auto">
@@ -159,6 +177,9 @@ const Blog = () => {
                             )}
                           <div>
                             <p className="font-medium text-sm">{post.author_name}</p>
+                            {post.author_designation && (
+                              <p className="text-xs text-muted-foreground">{post.author_designation}</p>
+                            )}
                           </div>
                         </div>
                         <Link 
