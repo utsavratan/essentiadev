@@ -308,16 +308,19 @@ const BlogPost = () => {
                 </div>
               </div>
               
-              {/* Tags */}
-              {post.tags && post.tags.length > 0 && (
+                {/* Tags */}
+                {post.tags && post.tags.length > 0 && (
                 <div className="flex flex-wrap gap-2 mt-6">
                   {post.tags.map((tag, index) => (
-                    <Badge key={index} variant="secondary">
-                      {tag}
-                    </Badge>
+                    <span
+                    key={index}
+                    className="bg-blue-600 text-white px-3 py-1 rounded-lg text-sm font-medium transition-colors hover:bg-blue-800"
+                    >
+                    {tag}
+                    </span>
                   ))}
                 </div>
-              )}
+                )}
             </div>
           </AnimatedElement>
         </div>

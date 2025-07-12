@@ -148,18 +148,23 @@ const Blog = () => {
                       </div>
 
                       {/* Tags */}
-                      {post.tags && post.tags.length > 0 && (
+                        {post.tags && post.tags.length > 0 && (
                         <div className="flex flex-wrap gap-2 mb-4">
                           {post.tags.slice(0, 3).map((tag, index) => (
-                            <Badge key={index} variant="secondary" className="text-xs">
-                              {tag}
-                            </Badge>
+                          <span
+                            key={index}
+                            className="bg-blue-600 text-white text-xs px-3 py-1 rounded-lg font-medium transition-colors duration-200 hover:bg-blue-800 hover:text-white cursor-pointer"
+                          >
+                            {tag}
+                          </span>
                           ))}
                           {post.tags.length > 3 && (
-                            <Badge variant="secondary" className="text-xs">+{post.tags.length - 3}</Badge>
+                          <span className="bg-blue-600 text-white text-xs px-3 py-1 rounded-lg font-medium transition-colors duration-200 hover:bg-blue-800 hover:text-white cursor-pointer">
+                            +{post.tags.length - 3}
+                          </span>
                           )}
                         </div>
-                      )}
+                        )}
 
                       {/* Author */}
                       <div className="flex items-center justify-between mt-auto">
