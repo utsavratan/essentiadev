@@ -5,32 +5,32 @@ import { Code2, Palette, BarChart3, Settings, Sparkles } from 'lucide-react';
 
 const serviceItems = [
   {
-    title: "Custom Development",
+    title: "Development",
     description: "Build scalable applications with modern technologies and best practices for optimal performance and user experience.",
     icon: Code2,
     gradient: "from-blue-500 to-cyan-500",
-    features: ["React & Node.js", "Cloud Architecture", "API Integration"]
+    features: []
   },
   {
-    title: "UI/UX Design",
-    description: "Create intuitive and beautiful user experiences that engage users and drive conversions through thoughtful design.",
+    title: "Design",
+    description: "Create user-friendly and intuitive software solutions that deliver an exceptional user experience.",
     icon: Palette,
     gradient: "from-purple-500 to-pink-500",
-    features: ["User Research", "Prototyping", "Design Systems"]
+    features: []
   },
   {
-    title: "Data Analytics",
-    description: "Transform raw data into actionable insights with advanced analytics and machine learning for business growth.",
+    title: "Data",
+    description: "Transform data into strategic advantage with our expertise in data engineering, machine learning, and AI.",
     icon: BarChart3,
     gradient: "from-green-500 to-emerald-500",
-    features: ["Data Engineering", "ML Models", "Business Intelligence"]
+    features: []
   },
   {
-    title: "DevOps Solutions",
-    description: "Streamline development workflows with automated CI/CD pipelines and infrastructure for efficient deployment.",
+    title: "DevOps",
+    description: "Streamline software development processes with automation and continuous integration and delivery.",
     icon: Settings,
     gradient: "from-orange-500 to-red-500",
-    features: ["CI/CD Pipelines", "Cloud Deployment", "Monitoring"]
+    features: []
   },
 ];
 
