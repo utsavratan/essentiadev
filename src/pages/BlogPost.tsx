@@ -5,6 +5,7 @@ import Footer from '../components/Footer';
 import AnimatedElement from '../components/AnimatedElement';
 import { ArrowLeft, Calendar, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import { supabase } from '@/integrations/supabase/client';
 
 interface BlogPost {
@@ -16,6 +17,8 @@ interface BlogPost {
   cover_image: string | null;
   author_name: string;
   author_image: string | null;
+  author_designation: string | null;
+  tags: string[] | null;
   published: boolean;
   created_at: string;
   updated_at: string;
@@ -66,73 +69,156 @@ const BlogPost = () => {
   // Only preview mode
   const [editorFontSize] = useState(18);
 
-  // Modified formatContent to use post.content
+  // Enhanced formatContent to match reference image styling
   const formatContent = (content: string) => {
     const parseInlineFormatting = (text: string) => {
-      text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-      text = text.replace(/\*(.*?)\*/g, '<em>$1</em>');
-      text = text.replace(/`(.*?)`/g, '<code className=\'bg-muted px-1 py-0.5 rounded text-sm\'>$1</code>');
-      text = text.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" class="text-primary underline" target="_blank" rel="noopener noreferrer">$1</a>');
+      text = text.replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold text-foreground">$1</strong>');
+      text = text.replace(/\*(.*?)\*/g, '<em class="italic">$1</em>');
+      text = text.replace(/`(.*?)`/g, '<code class="bg-muted px-1 py-0.5 rounded text-sm font-mono">$1</code>');
+      text = text.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" class="text-primary underline font-medium hover:text-primary/80" target="_blank" rel="noopener noreferrer">$1</a>');
       return text;
     };
 
-    return content.split('\n').map((paragraph, index) => {
+    const lines = content.split('\n');
+    const result = [];
+    let inList = false;
+    let listItems = [];
+
+    for (let i = 0; i < lines.length; i++) {
+      const paragraph = lines[i];
+      
+      // Handle headers
       if (paragraph.startsWith('### ')) {
-        return (
-          <h3 key={index} className="text-xl font-semibold mt-6 mb-3 text-foreground">
+        if (inList) {
+          result.push(
+            <ul key={`list-${i}`} className="mb-6 space-y-2">
+              {listItems}
+            </ul>
+          );
+          listItems = [];
+          inList = false;
+        }
+        result.push(
+          <h3 key={i} className="text-xl font-bold mt-8 mb-4 text-foreground">
             {paragraph.replace('### ', '')}
           </h3>
         );
       }
-      if (paragraph.startsWith('## ')) {
-        return (
-          <h2 key={index} className="text-2xl font-bold mt-8 mb-4 text-foreground">
+      else if (paragraph.startsWith('## ')) {
+        if (inList) {
+          result.push(
+            <ul key={`list-${i}`} className="mb-6 space-y-2">
+              {listItems}
+            </ul>
+          );
+          listItems = [];
+          inList = false;
+        }
+        result.push(
+          <h2 key={i} className="text-2xl font-bold mt-10 mb-6 text-foreground">
             {paragraph.replace('## ', '')}
           </h2>
         );
       }
-      if (paragraph.startsWith('# ')) {
-        return (
-          <h1 key={index} className="text-3xl font-bold mt-8 mb-6 text-foreground">
+      else if (paragraph.startsWith('# ')) {
+        if (inList) {
+          result.push(
+            <ul key={`list-${i}`} className="mb-6 space-y-2">
+              {listItems}
+            </ul>
+          );
+          listItems = [];
+          inList = false;
+        }
+        result.push(
+          <h1 key={i} className="text-3xl font-bold mt-10 mb-8 text-foreground">
             {paragraph.replace('# ', '')}
           </h1>
         );
       }
-      if (paragraph.startsWith('- ') || paragraph.startsWith('* ')) {
+      // Handle list items
+      else if (paragraph.startsWith('- ') || paragraph.startsWith('* ')) {
         const listItem = paragraph.replace(/^[-*] /, '');
-        return (
-          <li key={index} className="mb-2 text-muted-foreground ml-6 list-disc">
+        listItems.push(
+          <li key={i} className="text-muted-foreground leading-relaxed flex items-start">
+            <span className="w-2 h-2 bg-muted-foreground rounded-full mt-2 mr-3 flex-shrink-0"></span>
             <span dangerouslySetInnerHTML={{ __html: parseInlineFormatting(listItem) }} />
           </li>
         );
+        inList = true;
       }
-      if (/^\d+\.\s/.test(paragraph)) {
+      else if (/^\d+\.\s/.test(paragraph)) {
         const listItem = paragraph.replace(/^\d+\.\s/, '');
-        return (
-          <li key={index} className="mb-2 text-muted-foreground ml-6 list-decimal">
+        const number = paragraph.match(/^(\d+)\./)?.[1] || '1';
+        listItems.push(
+          <li key={i} className="text-muted-foreground leading-relaxed flex items-start">
+            <span className="w-6 h-6 bg-primary/10 text-primary rounded-full text-sm font-medium mr-3 flex-shrink-0 flex items-center justify-center mt-0.5">
+              {number}
+            </span>
             <span dangerouslySetInnerHTML={{ __html: parseInlineFormatting(listItem) }} />
           </li>
         );
+        inList = true;
       }
-      if (paragraph.startsWith('> ')) {
-        return (
-          <blockquote key={index} className="border-l-4 border-primary pl-4 my-4 italic text-muted-foreground">
+      // Handle blockquotes
+      else if (paragraph.startsWith('> ')) {
+        if (inList) {
+          result.push(
+            <ul key={`list-${i}`} className="mb-6 space-y-2">
+              {listItems}
+            </ul>
+          );
+          listItems = [];
+          inList = false;
+        }
+        result.push(
+          <blockquote key={i} className="border-l-4 border-primary bg-primary/5 pl-6 py-4 my-6 italic text-muted-foreground rounded-r-lg">
             <span dangerouslySetInnerHTML={{ __html: parseInlineFormatting(paragraph.replace('> ', '')) }} />
           </blockquote>
         );
       }
-      if (paragraph.startsWith('```')) {
-        return <div key={index} className="hidden"></div>;
+      // Handle empty lines
+      else if (paragraph.trim() === '') {
+        if (inList) {
+          result.push(
+            <ul key={`list-${i}`} className="mb-6 space-y-2">
+              {listItems}
+            </ul>
+          );
+          listItems = [];
+          inList = false;
+        }
+        result.push(<div key={i} className="mb-4"></div>);
       }
-      if (paragraph.trim() === '') {
-        return <br key={index} />;
+      // Handle regular paragraphs
+      else if (paragraph.trim() !== '') {
+        if (inList) {
+          result.push(
+            <ul key={`list-${i}`} className="mb-6 space-y-2">
+              {listItems}
+            </ul>
+          );
+          listItems = [];
+          inList = false;
+        }
+        result.push(
+          <p key={i} className="mb-6 text-muted-foreground leading-relaxed text-lg">
+            <span dangerouslySetInnerHTML={{ __html: parseInlineFormatting(paragraph) }} />
+          </p>
+        );
       }
-      return (
-        <p key={index} className="mb-4 text-muted-foreground leading-relaxed">
-          <span dangerouslySetInnerHTML={{ __html: parseInlineFormatting(paragraph) }} />
-        </p>
+    }
+
+    // Handle remaining list items
+    if (inList && listItems.length > 0) {
+      result.push(
+        <ul key="final-list" className="mb-6 space-y-2">
+          {listItems}
+        </ul>
       );
-    });
+    }
+
+    return result;
   };
 
   if (loading) {
@@ -198,11 +284,14 @@ const BlogPost = () => {
                     <img 
                       src={post.author_image} 
                       alt={post.author_name}
-                      className="w-10 h-10 rounded-full object-cover"
+                      className="w-12 h-12 rounded-full object-cover"
                     />
                   )}
-                  <div className="flex items-center gap-2">
-                    <span className="font-medium">{post.author_name}</span>
+                  <div>
+                    <span className="font-medium block">{post.author_name}</span>
+                    {post.author_designation && (
+                      <span className="text-sm text-muted-foreground">{post.author_designation}</span>
+                    )}
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
@@ -218,6 +307,17 @@ const BlogPost = () => {
                   <span>{calculateReadTime(post.content)}</span>
                 </div>
               </div>
+              
+              {/* Tags */}
+              {post.tags && post.tags.length > 0 && (
+                <div className="flex flex-wrap gap-2 mt-6">
+                  {post.tags.map((tag, index) => (
+                    <Badge key={index} variant="secondary">
+                      {tag}
+                    </Badge>
+                  ))}
+                </div>
+              )}
             </div>
           </AnimatedElement>
         </div>
@@ -246,7 +346,7 @@ const BlogPost = () => {
           <div className="max-w-4xl mx-auto">
             <AnimatedElement animation="slide-up" delay={0.3}>
               <article className="prose prose-lg max-w-none">
-                <div className="text-lg leading-relaxed" style={{ fontSize: editorFontSize }}>
+                <div className="leading-relaxed">
                   {formatContent(post.content)}
                 </div>
               </article>
