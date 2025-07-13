@@ -48,7 +48,7 @@ const ClientCarousel = () => {
       
       // Get animation duration based on the number of items
       const scrollerContentWidth = scrollerRef.current.scrollWidth;
-      const duration = scrollerContentWidth / 50; // Adjust speed by changing divisor
+      const duration = scrollerContentWidth / 80; // Adjust speed by changing divisor
       
       scrollerRef.current.setAttribute(
         'style',
